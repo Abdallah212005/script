@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A tech product available in the store",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the product" },
+        "category": { "type": "string", "description": "Category (e.g., PS5, PC, Web)" },
+        "price": { "type": "number", "description": "Price in EGP" },
+        "description": { "type": "string", "description": "Product description" },
+        "iconName": { "type": "string", "description": "Lucide icon name" },
+        "stock": { "type": "integer", "description": "Available stock" },
+        "photoUrl": { "type": "string", "description": "URL of the product image" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "category", "price"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "A service offered by Script Services",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Service title" },
+        "description": { "type": "string", "description": "Service description" },
+        "iconName": { "type": "string", "description": "Lucide icon name" },
+        "priceRange": { "type": "string", "description": "Price range (e.g., Starts from 500 EGP)" }
+      },
+      "required": ["title", "description"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A contact message from a user",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "User's name" },
+        "email": { "type": "string", "format": "email", "description": "User's email" },
+        "subject": { "type": "string", "description": "Message subject" },
+        "message": { "type": "string", "description": "Message content" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "User": {
+      "title": "User",
+      "description": "A user of the application",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "User's email" },
+        "role": { "type": "string", "enum": ["admin", "user"], "description": "User's role" },
+        "displayName": { "type": "string", "description": "User's display name" },
+        "photoURL": { "type": "string", "description": "User's photo URL" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "customerEmail": { "type": "string", "format": "email", "description": "Customer's email" },
+        "customerName": { "type": "string", "description": "Customer's name" },
+        "items": { "type": "array", "description": "List of ordered items" },
+        "total": { "type": "number", "description": "Total order amount" },
+        "status": { "type": "string", "enum": ["pending", "processing", "completed", "cancelled"], "description": "Order status" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerEmail", "items", "total", "status"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of store products"
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Collection of offered services"
+    },
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Collection of contact messages"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user profiles and roles"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    }
+  }
+}
